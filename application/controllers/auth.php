@@ -28,7 +28,7 @@ class auth extends CI_Controller
 
 			$data['title'] = 'login';
 			$this->load->view('template/header', $data);
-			$this->load->view('auth/login');
+			$this->load->view('auth/login', $data);
 			$this->load->view('template/footer');
 		} else {
 			$this->_login();
@@ -40,18 +40,18 @@ class auth extends CI_Controller
 		$email = $this->input->post('email');
 		$data = $this->db->get_where('user', ['email' => $email])->row_array();
 		if (!$data) {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger  alert-dismissible fade show" role="alert"> <strong>Email Not fount!</strong>plase register.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">times;</span></button></div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger  alert-dismissible fade show" role="alert"> <strong>Email Not fount!</strong>plase register.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 			redirect('auth');
 		} else {
 			if ($data['is_active'] == 0) {
 
-				$this->session->set_flashdata('message', '<div class="alert alert-danger  alert-dismissible fade show" role="alert"> <strong>account not actif ! </strong> please contack admin.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"> times;</span></button></div>');
+				$this->session->set_flashdata('message', '<div class="alert alert-danger  alert-dismissible fade show" role="alert"> <strong>account not actif ! </strong> please contack admin.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"> &times;</span></button></div>');
 				redirect('auth');
 			} else {
 				$password = $this->input->post('password');
 				if (!password_verify($password, $data['password'])) {
 
-					$this->session->set_flashdata('message', '<div class="alert alert-danger  alert-dismissible fade show" role="alert"> <strong> wroung password!</strong>plase try again.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">times;</span></button></div>');
+					$this->session->set_flashdata('message', '<div class="alert alert-danger  alert-dismissible fade show" role="alert"> <strong> wroung password!</strong>plase try again.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 					redirect('auth');
 				} else {
 					$user = [
