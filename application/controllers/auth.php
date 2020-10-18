@@ -19,6 +19,9 @@ class auth extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+
+
 	public function index()
 	{
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
@@ -113,5 +116,12 @@ class auth extends CI_Controller
 		$this->session->unset_userdata('email', 'role_id');
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>success ! </strong> Logout ...<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 		redirect('auth');
+	}
+
+	public function block()
+	{
+		$this->load->view('template/layout/header');
+		$this->load->view('block');
+		$this->load->view('template/layout/footer');
 	}
 }
